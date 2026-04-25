@@ -3,741 +3,379 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shamima Akther Jui — BBA Accounting</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>Shamima Akther Jui — Accounts Executive</title>
 <style>
-/* ===== CSS VARIABLES ===== */
 :root {
-  --bg: #070a12;
-  --bg2: #0d1220;
-  --surface: #111827;
-  --border: rgba(120,180,255,0.12);
-  --accent: #4fa3e8;
-  --accent2: #a78bfa;
-  --accent3: #34d399;
-  --gold: #f59e0b;
-  --text: #e2e8f0;
-  --muted: #64748b;
-  --glow: rgba(79,163,232,0.25);
-  --glow2: rgba(167,139,250,0.2);
+  --bg:     #06080f;
+  --bg2:    #0b0f1a;
+  --surf:   #101624;
+  --bdr:    rgba(99,179,237,0.13);
+  --a1:     #63b3ed;
+  --a2:     #b794f4;
+  --a3:     #68d391;
+  --text:   #e2e8f0;
+  --muted:  #5a6a82;
+  --glow:   rgba(99,179,237,0.22);
+  --fh:     'Segoe UI', system-ui, Arial, sans-serif;
+  --fm:     'Courier New', Courier, monospace;
+  --fs:     Georgia, 'Times New Roman', serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--fm);
+  font-size:14px;
+  line-height:1.75;
+  overflow-x:hidden;
+  cursor:none;
 }
 
-/* ===== RESET ===== */
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Mono', monospace;
-  font-size: 14px;
-  line-height: 1.7;
-  overflow-x: hidden;
-  cursor: none;
+/* ── LOADER ── */
+#loader{
+  position:fixed;inset:0;
+  background:var(--bg);
+  z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.ll{display:flex;gap:12px;}
+.ll span{
+  font-family:var(--fh);font-size:68px;font-weight:900;color:var(--a1);
+  animation:lbounce 1.3s ease-in-out infinite;
+}
+.ll span:nth-child(1){animation-delay:0s;}
+.ll span:nth-child(2){animation-delay:.17s;}
+.ll span:nth-child(3){animation-delay:.34s;}
+@keyframes lbounce{0%,100%{transform:translateY(0);color:var(--a1);}45%{transform:translateY(-20px);color:var(--a2);}}
+.ltrack{width:220px;height:3px;background:rgba(99,179,237,.1);border-radius:3px;margin-top:28px;overflow:hidden;}
+.lfill{height:100%;background:linear-gradient(90deg,var(--a1),var(--a2));animation:lfill 1.5s ease forwards;}
+@keyframes lfill{0%{width:0}100%{width:100%}}
+.lsub{margin-top:14px;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);}
+
+/* ── CURSOR ── */
+#cur{position:fixed;width:10px;height:10px;background:var(--a1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);box-shadow:0 0 14px var(--a1),0 0 30px rgba(99,179,237,.4);}
+#cur-ring{position:fixed;width:34px;height:34px;border:1.5px solid rgba(99,179,237,.45);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);}
+
+/* ── CANVAS ── */
+#pc{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:18px 44px;display:flex;justify-content:space-between;align-items:center;
+  background:rgba(6,8,15,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bdr);
+}
+.nl{font-family:var(--fh);font-weight:900;font-size:14px;color:var(--a1);letter-spacing:.12em;}
+.nr{display:flex;gap:28px;}
+.nr a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;cursor:none;}
+.nr a:hover{color:var(--a1);}
+
+/* ── LAYOUT ── */
+section{padding:100px 0;position:relative;z-index:1;}
+.container{max-width:1080px;margin:0 auto;padding:0 36px;}
+.alt{background:var(--bg2);}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transition:opacity .75s ease,transform .75s cubic-bezier(.22,.8,.36,1);}
+.rv.fu{transform:translateY(54px);}
+.rv.sl{transform:translateX(-54px);}
+.rv.sr{transform:translateX(54px);}
+.rv.on{opacity:1!important;transform:none!important;}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:88px;}
+.hgrid{display:grid;grid-template-columns:1fr 210px;gap:56px;align-items:center;width:100%;}
+.htag{font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--a3);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.htag::before{content:'';width:24px;height:1px;background:var(--a3);display:block;}
+.hname{
+  font-family:var(--fh);
+  font-size:clamp(34px,5.5vw,74px);
+  font-weight:900;line-height:1.0;letter-spacing:-.01em;
+  background:linear-gradient(110deg,#fff 0%,var(--a1) 35%,var(--a2) 65%,#fff 100%);
+  background-size:280% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 5s linear infinite;
+}
+@keyframes shimmer{0%{background-position:100% 0}100%{background-position:-200% 0}}
+.hrole{font-family:var(--fs);font-size:clamp(14px,1.8vw,20px);font-style:italic;color:var(--muted);margin-top:10px;}
+.hbio{max-width:500px;margin-top:24px;font-size:13px;line-height:1.95;color:rgba(226,232,240,.72);}
+.btns{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+.btn{padding:11px 26px;border-radius:4px;font-family:var(--fm);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:none;transition:all .28s;display:inline-block;}
+.bp{background:var(--a1);color:#000;font-weight:700;box-shadow:0 0 20px rgba(99,179,237,.35);}
+.bp:hover{background:#fff;box-shadow:0 0 36px rgba(99,179,237,.55);transform:translateY(-2px);}
+.bo{border:1px solid var(--bdr);color:var(--muted);}
+.bo:hover{border-color:var(--a1);color:var(--a1);transform:translateY(-2px);}
+
+/* ── 3D STATS CARD ── */
+.fcard{
+  background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:22px 18px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;
+  animation:float3d 7s ease-in-out infinite;
+  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px var(--glow);
+  margin-top:36px;transform-style:preserve-3d;
+}
+@keyframes float3d{
+  0%  {transform:rotateX(5deg) rotateY(-7deg) translateY(0);}
+  33% {transform:rotateX(-4deg) rotateY(6deg) translateY(-9px);}
+  66% {transform:rotateX(6deg) rotateY(3deg) translateY(-5px);}
+  100%{transform:rotateX(5deg) rotateY(-7deg) translateY(0);}
+}
+.sn{font-family:var(--fh);font-size:30px;font-weight:900;color:var(--a1);display:block;line-height:1;text-align:center;}
+.sl2{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:4px;display:block;text-align:center;}
+
+/* ── AVATAR ── */
+.av-wrap{position:relative;width:190px;height:190px;flex-shrink:0;}
+.av{
+  width:134px;height:134px;border-radius:50%;
+  background:linear-gradient(135deg,var(--a1),var(--a2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fh);font-size:42px;font-weight:900;color:#fff;
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;
+  animation:avpulse 3s ease-in-out infinite;
+  box-shadow:0 0 32px rgba(99,179,237,.45);
+}
+@keyframes avpulse{
+  0%,100%{box-shadow:0 0 22px rgba(99,179,237,.3);}
+  50%{box-shadow:0 0 56px rgba(99,179,237,.65),0 0 80px rgba(183,148,244,.3);}
+}
+.rr{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:1.5px solid rgba(99,179,237,.32);animation:ripout 3.4s ease-out infinite;}
+.rr:nth-child(1){width:156px;height:156px;animation-delay:0s;}
+.rr:nth-child(2){width:182px;height:182px;animation-delay:.95s;}
+.rr:nth-child(3){width:208px;height:208px;animation-delay:1.9s;}
+@keyframes ripout{0%{opacity:.7;transform:translate(-50%,-50%) scale(.87);}100%{opacity:0;transform:translate(-50%,-50%) scale(1.12);}}
+
+/* ── SEC HEADERS ── */
+.stag{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--a1);margin-bottom:8px;}
+.stitle{font-family:var(--fh);font-size:clamp(24px,4vw,44px);font-weight:800;color:#fff;margin-bottom:44px;}
+.stitle em{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.2);font-style:normal;}
+
+/* ── MARQUEE ── */
+.mwrap{background:rgba(99,179,237,.04);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:15px 0;overflow:hidden;position:relative;z-index:1;}
+.mtrack{display:flex;width:max-content;animation:mscroll 24s linear infinite;}
+.mitem{white-space:nowrap;padding:0 30px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;}
+.mitem::after{content:'◆';color:var(--a1);font-size:6px;}
+@keyframes mscroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── EXPERIENCE ── */
+.exp-card{
+  background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:34px;
+  position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;margin-bottom:28px;
+}
+.exp-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--a1),var(--a2));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s ease;
+}
+.exp-card:hover::before{transform:scaleX(1);}
+.exp-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4),0 0 28px var(--glow);}
+.exp-hd{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+.exp-role{font-family:var(--fh);font-size:18px;font-weight:700;color:#fff;}
+.exp-date{font-size:11px;letter-spacing:.1em;color:var(--a3);}
+.exp-co{font-size:12px;color:var(--a1);margin-bottom:18px;letter-spacing:.05em;}
+.exp-ul{list-style:none;}
+.exp-ul li{padding:6px 0 6px 22px;position:relative;font-size:13px;color:rgba(226,232,240,.75);line-height:1.8;}
+.exp-ul li::before{content:'→';position:absolute;left:0;color:var(--a3);}
+
+/* ── HIGHLIGHTS BADGES ── */
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+.badge{
+  padding:5px 14px;border-radius:20px;
+  font-size:11px;letter-spacing:.08em;
+  background:rgba(99,179,237,.09);
+  border:1px solid rgba(99,179,237,.2);
+  color:var(--a1);
 }
 
-/* ===== LOADING SCREEN ===== */
-#loader {
-  position: fixed; inset: 0;
-  background: var(--bg);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-#loader.hidden { opacity: 0; visibility: hidden; }
-.loader-name {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 5vw, 56px);
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: var(--accent);
-  animation: loaderPulse 1.4s ease-in-out infinite;
-}
-.loader-bar-track {
-  width: 200px; height: 2px;
-  background: rgba(79,163,232,0.15);
-  margin-top: 24px;
-  border-radius: 2px;
-  overflow: hidden;
-}
-.loader-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  animation: loaderFill 1.8s ease forwards;
-}
-.loader-sub {
-  font-size: 11px;
-  letter-spacing: 0.3em;
-  color: var(--muted);
-  margin-top: 14px;
-  text-transform: uppercase;
-}
-@keyframes loaderPulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-@keyframes loaderFill { 0%{width:0} 100%{width:100%} }
+/* ── SKILLS ── */
+.skgrid{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+.skgt{font-family:var(--fh);font-size:12px;font-weight:700;color:var(--a2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--bdr);}
+.skbw{margin-bottom:18px;}
+.skbl{display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;color:rgba(226,232,240,.82);}
+.sktrack{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.skfill{height:100%;border-radius:2px;width:0;transition:width 1.3s cubic-bezier(.25,.8,.25,1);background:linear-gradient(90deg,var(--a1),var(--a2));box-shadow:0 0 10px rgba(99,179,237,.45);}
 
-/* ===== CUSTOM CURSOR ===== */
-#cursor {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: width 0.2s, height 0.2s, background 0.2s;
-  box-shadow: 0 0 18px var(--accent), 0 0 40px rgba(79,163,232,0.4);
-}
-#cursor-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1.5px solid rgba(79,163,232,0.5);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9997;
-  transform: translate(-50%,-50%);
-  transition: width 0.35s cubic-bezier(.25,.8,.25,1), height 0.35s cubic-bezier(.25,.8,.25,1), border-color 0.2s;
-}
-body:has(a:hover) #cursor { width:18px; height:18px; }
-body:has(a:hover) #cursor-ring { width:52px; height:52px; border-color: var(--accent2); }
+/* ── EDUCATION ── */
+.etl{position:relative;padding-left:32px;}
+.etl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--a1),var(--a2),transparent);}
+.eitem{position:relative;margin-bottom:44px;}
+.eitem::before{content:'';position:absolute;left:-28px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--a1);box-shadow:0 0 12px var(--a1);}
+.edeg{font-family:var(--fh);font-size:17px;font-weight:700;color:#fff;margin-bottom:2px;}
+.esch{font-size:12px;color:var(--a1);margin-bottom:4px;letter-spacing:.05em;}
+.emeta{font-size:11px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;}
+.egpa{color:var(--a3);}
 
-/* ===== PARTICLE CANVAS ===== */
-#particle-canvas {
-  position: fixed; inset:0;
-  z-index: 0;
-  pointer-events: none;
-}
+/* ── CERTS ── */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;}
+.ccard{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:24px;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;}
+.ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--a3),var(--a1));transform:scaleX(0);transform-origin:left;transition:transform .4s ease;}
+.ccard:hover::before{transform:scaleX(1);}
+.ccard:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.4),0 0 18px rgba(104,211,145,.15);}
+.cnum{font-family:var(--fh);font-size:34px;font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(99,179,237,.22);line-height:1;margin-bottom:10px;}
+.cname{font-size:13px;font-weight:600;color:#fff;line-height:1.5;}
+.corg{font-size:11px;color:var(--muted);margin-top:6px;}
 
-/* ===== LAYOUT ===== */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 32px;
-  position: relative;
-  z-index: 1;
-}
+/* ── CONTACT ── */
+#contact{text-align:center;overflow:hidden;}
+.crn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(99,179,237,.11);animation:crpulse 3.6s ease-out infinite;pointer-events:none;}
+.crn:nth-child(1){width:180px;height:180px;animation-delay:0s;}
+.crn:nth-child(2){width:320px;height:320px;animation-delay:.95s;}
+.crn:nth-child(3){width:460px;height:460px;animation-delay:1.9s;}
+@keyframes crpulse{0%{opacity:.6;transform:translate(-50%,-50%) scale(.9);}100%{opacity:0;transform:translate(-50%,-50%) scale(1.1);}}
+.cinfo{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-top:40px;position:relative;z-index:1;}
+.citem{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:18px 26px;text-decoration:none;color:var(--text);font-size:13px;transition:all .28s;cursor:none;display:flex;align-items:center;gap:12px;}
+.citem:hover{border-color:var(--a1);color:var(--a1);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.35),0 0 18px var(--glow);}
+.cic{font-size:18px;}
 
-/* ===== NAVBAR ===== */
-nav {
-  position: fixed; top:0; left:0; right:0;
-  z-index: 100;
-  padding: 20px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(7,10,18,0.7);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.08em;
-}
-.nav-links { display: flex; gap: 28px; }
-.nav-links a {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.3s;
-  cursor: none;
-}
-.nav-links a:hover { color: var(--accent); }
+/* ── SOFT SKILLS ── */
+.ss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+.ss-card{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:20px;text-align:center;transition:transform .3s,border-color .3s;}
+.ss-card:hover{transform:translateY(-3px);border-color:var(--a1);}
+.ss-icon{font-size:28px;margin-bottom:10px;display:block;}
+.ss-label{font-size:12px;color:rgba(226,232,240,.8);line-height:1.5;}
 
-/* ===== HERO ===== */
-#hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding-top: 100px;
-  position: relative;
-}
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 60px;
-  align-items: center;
-  width: 100%;
-}
-.hero-label {
-  font-size: 11px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--accent3);
-  margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.hero-label::before {
-  content:'';
-  width:28px; height:1px;
-  background: var(--accent3);
-  display: block;
-}
-.hero-name {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(38px, 6vw, 80px);
-  font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.01em;
-  background: linear-gradient(120deg, #fff 0%, var(--accent) 40%, var(--accent2) 70%, #fff 100%);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 5s linear infinite;
-}
-@keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-200% 0} }
+/* ── FOOTER ── */
+footer{padding:28px;border-top:1px solid var(--bdr);text-align:center;font-size:11px;color:var(--muted);letter-spacing:.1em;position:relative;z-index:1;}
 
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(16px, 2.5vw, 24px);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--muted);
-  margin-top: 10px;
-  letter-spacing: 0.06em;
-}
-.hero-summary {
-  max-width: 500px;
-  margin-top: 28px;
-  color: rgba(226,232,240,0.7);
-  font-size: 13px;
-  line-height: 1.9;
-}
-.hero-cta {
-  display: flex;
-  gap: 16px;
-  margin-top: 36px;
-  flex-wrap: wrap;
-}
-.btn {
-  padding: 12px 28px;
-  border-radius: 4px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: none;
-  transition: all 0.3s;
-  display: inline-block;
-}
-.btn-primary {
-  background: var(--accent);
-  color: #000;
-  font-weight: 500;
-  box-shadow: 0 0 20px rgba(79,163,232,0.3);
-}
-.btn-primary:hover {
-  background: #fff;
-  box-shadow: 0 0 32px rgba(79,163,232,0.5);
-  transform: translateY(-2px);
-}
-.btn-outline {
-  border: 1px solid var(--border);
-  color: var(--muted);
-  background: transparent;
-}
-.btn-outline:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-2px);
-}
-
-/* ===== AVATAR ===== */
-.avatar-wrap {
-  position: relative;
-  width: 180px; height: 180px;
-  flex-shrink: 0;
-}
-.avatar-initials {
-  width: 140px; height: 140px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-size: 42px;
-  font-weight: 800;
-  color: #fff;
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  z-index: 2;
-  animation: avatarPulse 3s ease-in-out infinite;
-  box-shadow: 0 0 40px rgba(79,163,232,0.4);
-}
-@keyframes avatarPulse {
-  0%,100%{box-shadow:0 0 20px rgba(79,163,232,0.3);}
-  50%{box-shadow:0 0 50px rgba(79,163,232,0.6), 0 0 80px rgba(167,139,250,0.3);}
-}
-.ripple {
-  position: absolute;
-  top:50%; left:50%;
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1.5px solid rgba(79,163,232,0.4);
-  animation: rippleOut 3s ease-out infinite;
-}
-.ripple:nth-child(1){ width:160px; height:160px; animation-delay:0s; }
-.ripple:nth-child(2){ width:185px; height:185px; animation-delay:0.8s; }
-.ripple:nth-child(3){ width:210px; height:210px; animation-delay:1.6s; }
-@keyframes rippleOut {
-  0%{opacity:0.8; transform:translate(-50%,-50%) scale(0.85);}
-  100%{opacity:0; transform:translate(-50%,-50%) scale(1.15);}
-}
-
-/* ===== 3D CARD ===== */
-.card-3d-wrap {
-  perspective: 1000px;
-  margin-top: 24px;
-}
-.card-3d {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px 28px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  animation: float3d 6s ease-in-out infinite;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px var(--glow);
-  transform-style: preserve-3d;
-}
-@keyframes float3d {
-  0%{transform: rotateX(4deg) rotateY(-6deg) translateY(0px);}
-  33%{transform: rotateX(-3deg) rotateY(5deg) translateY(-8px);}
-  66%{transform: rotateX(5deg) rotateY(2deg) translateY(-4px);}
-  100%{transform: rotateX(4deg) rotateY(-6deg) translateY(0px);}
-}
-.stat-item { text-align: center; }
-.stat-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--accent);
-  display: block;
-  line-height: 1;
-}
-.stat-label {
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 4px;
-  display: block;
-}
-
-/* ===== SECTION HEADERS ===== */
-.section-tag {
-  font-size: 10px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(26px, 4vw, 44px);
-  font-weight: 700;
-  line-height: 1.1;
-  color: #fff;
-  margin-bottom: 48px;
-}
-.section-title span {
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.25);
-}
-section {
-  padding: 100px 0;
-}
-
-/* ===== SCROLL REVEAL ===== */
-.reveal { opacity:0; transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.25,.8,.25,1); }
-.reveal.fade-up { transform: translateY(60px); }
-.reveal.slide-left { transform: translateX(-60px); }
-.reveal.slide-right { transform: translateX(60px); }
-.reveal.visible { opacity:1 !important; transform: none !important; }
-
-/* ===== EXPERIENCE ===== */
-#experience { background: var(--bg2); }
-.exp-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 32px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.exp-card::before {
-  content:'';
-  position:absolute; top:0; left:0; right:0; height:2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-}
-.exp-card:hover::before { transform: scaleX(1); }
-.exp-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px var(--glow); }
-.exp-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
-.exp-role { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 600; color: #fff; }
-.exp-date { font-size: 11px; letter-spacing:0.12em; color: var(--accent3); }
-.exp-company { font-size: 12px; color: var(--accent); margin-bottom: 16px; letter-spacing:0.06em; }
-.exp-bullets { list-style: none; }
-.exp-bullets li {
-  padding: 6px 0 6px 20px;
-  position: relative;
-  font-size: 13px;
-  color: rgba(226,232,240,0.75);
-  line-height: 1.7;
-}
-.exp-bullets li::before {
-  content: '→';
-  position: absolute; left:0;
-  color: var(--accent3);
-  font-size: 12px;
-}
-
-/* ===== MARQUEE ===== */
-.marquee-section {
-  background: rgba(79,163,232,0.04);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 18px 0;
-  overflow: hidden;
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marqueeScroll 20s linear infinite;
-}
-.marquee-item {
-  white-space: nowrap;
-  padding: 0 36px;
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.marquee-item::after { content:'◆'; color: var(--accent); font-size: 6px; }
-@keyframes marqueeScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-/* ===== SKILLS ===== */
-.skills-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-}
-.skill-group-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent2);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-.skill-bar-wrap { margin-bottom: 18px; }
-.skill-bar-label {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-  font-size: 12px;
-  color: rgba(226,232,240,0.8);
-}
-.skill-track {
-  height: 4px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.skill-fill {
-  height: 100%;
-  border-radius: 2px;
-  width: 0;
-  transition: width 1.2s cubic-bezier(.25,.8,.25,1);
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  box-shadow: 0 0 10px rgba(79,163,232,0.5);
-}
-
-/* ===== EDUCATION ===== */
-#education { background: var(--bg2); }
-.edu-timeline { position: relative; padding-left: 36px; }
-.edu-timeline::before {
-  content:'';
-  position:absolute; left:8px; top:0; bottom:0; width:1px;
-  background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
-}
-.edu-item { position: relative; margin-bottom: 48px; }
-.edu-item::before {
-  content:'';
-  position:absolute; left:-32px; top:6px;
-  width: 10px; height: 10px;
-  border-radius:50%;
-  background: var(--accent);
-  box-shadow: 0 0 12px var(--accent);
-}
-.edu-deg {
-  font-family: 'Syne', sans-serif;
-  font-size: 18px; font-weight: 600; color: #fff;
-  margin-bottom: 2px;
-}
-.edu-school { font-size: 12px; color: var(--accent); margin-bottom: 4px; letter-spacing:0.06em; }
-.edu-meta {
-  font-size: 11px; color: var(--muted); letter-spacing:0.08em;
-  display: flex; gap:16px; flex-wrap:wrap;
-}
-.edu-gpa { color: var(--accent3); }
-
-/* ===== CERTIFICATIONS ===== */
-.cert-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
-}
-.cert-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 24px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.cert-card::before {
-  content:'';
-  position:absolute; top:0; left:0; right:0; height:3px;
-  background: linear-gradient(90deg, var(--accent3), var(--accent));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-}
-.cert-card:hover::before { transform: scaleX(1); }
-.cert-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(52,211,153,0.15); }
-.cert-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(79,163,232,0.25);
-  line-height: 1;
-  margin-bottom: 10px;
-}
-.cert-name { font-size: 13px; font-weight: 500; color: #fff; line-height: 1.5; }
-.cert-org { font-size: 11px; color: var(--muted); margin-top: 6px; letter-spacing:0.08em; }
-
-/* ===== CONTACT ===== */
-#contact { text-align: center; position: relative; }
-.contact-glow {
-  position: absolute; top:50%; left:50%;
-  transform: translate(-50%,-50%);
-  width: 400px; height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(79,163,232,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.contact-ring {
-  position: absolute; top:50%; left:50%;
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid rgba(79,163,232,0.15);
-  animation: contactPulse 3s ease-out infinite;
-}
-.contact-ring:nth-child(1){ width:200px; height:200px; animation-delay:0s; }
-.contact-ring:nth-child(2){ width:340px; height:340px; animation-delay:0.8s; }
-.contact-ring:nth-child(3){ width:480px; height:480px; animation-delay:1.6s; }
-@keyframes contactPulse {
-  0%{opacity:0.6; transform:translate(-50%,-50%) scale(0.9);}
-  100%{opacity:0; transform:translate(-50%,-50%) scale(1.1);}
-}
-.contact-info {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-top: 40px;
-  position: relative;
-  z-index: 1;
-}
-.contact-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px 28px;
-  text-decoration: none;
-  color: var(--text);
-  font-size: 13px;
-  transition: all 0.3s;
-  cursor: none;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.contact-item:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.3), 0 0 20px var(--glow);
-}
-.contact-icon { font-size: 18px; }
-
-/* ===== FOOTER ===== */
-footer {
-  padding: 32px;
-  border-top: 1px solid var(--border);
-  text-align: center;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-  .hero-inner { grid-template-columns:1fr; text-align:center; }
-  .hero-label { justify-content:center; }
-  .hero-summary { margin: 28px auto 0; }
-  .hero-cta { justify-content:center; }
-  .avatar-wrap { margin: 0 auto 40px; }
-  .hero-inner { flex-direction:column-reverse; }
-  .skills-grid { grid-template-columns:1fr; }
-  .card-3d { grid-template-columns:1fr; gap:12px; }
-  .nav-links { display:none; }
+/* ── RESPONSIVE ── */
+@media(max-width:740px){
+  .hgrid{grid-template-columns:1fr;text-align:center;}
+  .htag{justify-content:center;}
+  .hbio{margin:22px auto 0;}
+  .btns{justify-content:center;}
+  .av-wrap{margin:0 auto 36px;}
+  .skgrid{grid-template-columns:1fr;}
+  .fcard{grid-template-columns:1fr 1fr 1fr;}
+  .nr{display:none;}
+  .crn{display:none;}
 }
 </style>
 </head>
 <body>
 
-<!-- CURSOR -->
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<canvas id="pc"></canvas>
 
-<!-- PARTICLE CANVAS -->
-<canvas id="particle-canvas"></canvas>
-
-<!-- LOADING SCREEN -->
+<!-- LOADER -->
 <div id="loader">
-  <div class="loader-name">SAJ</div>
-  <div class="loader-bar-track"><div class="loader-bar"></div></div>
-  <div class="loader-sub">Loading Portfolio</div>
+  <div class="ll"><span>S</span><span>A</span><span>J</span></div>
+  <div class="ltrack"><div class="lfill"></div></div>
+  <div class="lsub">Loading Portfolio</div>
 </div>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">SHAMIMA AKTHER JUI</div>
-  <div class="nav-links">
-    <a href="#about">About</a>
+  <div class="nl">SHAMIMA AKTHER JUI</div>
+  <div class="nr">
+    <a href="#hero">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
     <a href="#education">Education</a>
-    <a href="#certifications">Certifications</a>
+    <a href="#certs">Certifications</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section id="about">
+<section id="hero">
   <div class="container">
-    <div class="hero-inner">
+    <div class="hgrid">
       <div>
-        <div class="hero-label reveal fade-up">Portfolio · Accounting · Sylhet, BD</div>
-        <h1 class="hero-name reveal fade-up" style="transition-delay:0.1s">SHAMIMA<br>AKTHER JUI</h1>
-        <p class="hero-title reveal fade-up" style="transition-delay:0.2s">BBA in Accounting · Emerging Finance Professional</p>
-        <p class="hero-summary reveal fade-up" style="transition-delay:0.3s">
-          Motivated BBA graduate with hands-on internship experience in accounts and office operations. Skilled in Excel-based data analysis, iAccounting software, billing processes, and client communications. Passionate about Student Counselling, Admission Processing, and Educational Consultancy.
+        <div class="htag rv fu">Accounts Executive · BBA Accounting · Sylhet, BD</div>
+        <h1 class="hname rv fu" style="transition-delay:.1s">SHAMIMA<br>AKTHER JUI</h1>
+        <p class="hrole rv fu" style="transition-delay:.2s">BBA in Accounting | Accounts Executive</p>
+        <p class="hbio rv fu" style="transition-delay:.3s">
+          Accounting graduate (CGPA 3.50, Metropolitan University Sylhet) with verified industry experience in ledger management, client billing, financial reconciliation, and accounts receivable tracking. Proficient in Microsoft Excel and iAccounting software. Seeking a results-driven Accounts Executive role.
         </p>
-        <div class="hero-cta reveal fade-up" style="transition-delay:0.4s">
-          <a href="#contact" class="btn btn-primary">Get In Touch</a>
-          <a href="#experience" class="btn btn-outline">View Experience</a>
+        <div class="btns rv fu" style="transition-delay:.4s">
+          <a href="#contact" class="btn bp">Get In Touch</a>
+          <a href="#experience" class="btn bo">View Experience</a>
         </div>
-
-        <!-- 3D CARD -->
-        <div class="card-3d-wrap reveal fade-up" style="transition-delay:0.5s; margin-top:40px;">
-          <div class="card-3d">
-            <div class="stat-item">
-              <span class="stat-num">3.50</span>
-              <span class="stat-label">CGPA</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-num">4+</span>
-              <span class="stat-label">Certifications</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-num">4.0</span>
-              <span class="stat-label">HSC GPA</span>
-            </div>
-          </div>
+        <!-- 3D FLOATING CARD -->
+        <div class="fcard rv fu" style="transition-delay:.52s">
+          <div><span class="sn">3.42</span><span class="sl2">CGPA</span></div>
+          <div><span class="sn">100+</span><span class="sl2">Invoices</span></div>
+          <div><span class="sn">50+</span><span class="sl2">Accounts</span></div>
         </div>
       </div>
-
-      <!-- AVATAR -->
-      <div class="avatar-wrap reveal slide-right">
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-        <div class="avatar-initials">SAJ</div>
+      <!-- AVATAR with ripple rings -->
+      <div class="av-wrap rv sr">
+        <div class="rr"></div>
+        <div class="rr"></div>
+        <div class="rr"></div>
+        <div class="av">SAJ</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-section">
-  <div class="marquee-track" id="marquee">
-    <div class="marquee-item">IT Lab Solution</div>
-    <div class="marquee-item">Metropolitan University Sylhet</div>
-    <div class="marquee-item">ICT Division SUST</div>
-    <div class="marquee-item">Microsoft Excel</div>
-    <div class="marquee-item">iAccounting</div>
-    <div class="marquee-item">Tally Software</div>
-    <div class="marquee-item">MUMUN Conference</div>
-    <div class="marquee-item">Facebook Ads Ecosystem</div>
-    <div class="marquee-item">Bookkeeping</div>
-    <div class="marquee-item">Digital Marketing</div>
-    <!-- Duplicate for seamless loop -->
-    <div class="marquee-item">IT Lab Solution</div>
-    <div class="marquee-item">Metropolitan University Sylhet</div>
-    <div class="marquee-item">ICT Division SUST</div>
-    <div class="marquee-item">Microsoft Excel</div>
-    <div class="marquee-item">iAccounting</div>
-    <div class="marquee-item">Tally Software</div>
-    <div class="marquee-item">MUMUN Conference</div>
-    <div class="marquee-item">Facebook Ads Ecosystem</div>
-    <div class="marquee-item">Bookkeeping</div>
-    <div class="marquee-item">Digital Marketing</div>
+<div class="mwrap">
+  <div class="mtrack">
+    <div class="mitem">IT Lab Solutions Ltd</div>
+    <div class="mitem">Metropolitan University Sylhet</div>
+    <div class="mitem">iAccounting Software</div>
+    <div class="mitem">Microsoft Excel</div>
+    <div class="mitem">Ledger Management</div>
+    <div class="mitem">Invoice Processing</div>
+    <div class="mitem">Financial Reconciliation</div>
+    <div class="mitem">Tally Accounting</div>
+    <div class="mitem">ICT Division SUST</div>
+    <div class="mitem">MUMUN Conference</div>
+    <div class="mitem">Accounts Receivable</div>
+    <div class="mitem">Bookkeeping</div>
+    <!-- duplicate for seamless loop -->
+    <div class="mitem">IT Lab Solutions Ltd</div>
+    <div class="mitem">Metropolitan University Sylhet</div>
+    <div class="mitem">iAccounting Software</div>
+    <div class="mitem">Microsoft Excel</div>
+    <div class="mitem">Ledger Management</div>
+    <div class="mitem">Invoice Processing</div>
+    <div class="mitem">Financial Reconciliation</div>
+    <div class="mitem">Tally Accounting</div>
+    <div class="mitem">ICT Division SUST</div>
+    <div class="mitem">MUMUN Conference</div>
+    <div class="mitem">Accounts Receivable</div>
+    <div class="mitem">Bookkeeping</div>
   </div>
 </div>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section id="experience" class="alt">
   <div class="container">
-    <p class="section-tag reveal fade-up">Work Experience</p>
-    <h2 class="section-title reveal fade-up">Professional <span>Journey</span></h2>
-    <div class="reveal slide-left">
-      <div class="exp-card">
-        <div class="exp-header">
-          <span class="exp-role">Intern — Accounts & Operations</span>
-          <span class="exp-date">Jan 2026 — April 2026</span>
-        </div>
-        <div class="exp-company">IT Lab Solution · Jail Road, Sylhet</div>
-        <ul class="exp-bullets">
-          <li>Managed and analyzed ledger data using Microsoft Excel to classify active and inactive records across multiple projects, improving data organization and reporting accuracy.</li>
-          <li>Entered and verified financial transactions in iAccounting software, ensuring accurate and up-to-date accounting records.</li>
-          <li>Assisted in billing processes, invoice preparation, and payment tracking.</li>
-        </ul>
+    <p class="stag rv fu">Work Experience</p>
+    <h2 class="stitle rv fu">Professional <em>Journey</em></h2>
+
+    <div class="exp-card rv sl">
+      <div class="exp-hd">
+        <span class="exp-role">Intern — Accounts & Operations</span>
+        <span class="exp-date">January 2026 – April 2026</span>
+      </div>
+      <div class="exp-co">IT Lab Solutions Ltd. · Jail Road, Sylhet</div>
+      <ul class="exp-ul">
+        <li>Collected and classified ledger data for 50+ client accounts across 4 business segments — Pathshala, News Portal, Dokani, and Website — in Microsoft Excel, categorizing each as active or inactive to improve portfolio visibility and reporting accuracy.</li>
+        <li>Reconciled opening and closing balances from FY 2025 records for all client accounts, verifying ledger accuracy against physical files and resolving discrepancies before month-end close.</li>
+        <li>Processed and issued 100+ invoices using iAccounting software and manual billing across diverse client types — Pathshala, News Portal, Dokani, Website, Software, and AMR Union — ensuring zero billing delays.</li>
+        <li>Built a structured due-client tracker listing outstanding balances, last payment dates, and due amounts, enabling the finance team to prioritize collections and reduce receivables lag.</li>
+        <li>Extracted and compiled a report of 50+ MFS transactions (Oct 2025 – Jan 2026) from pSUITE, supporting audit trail integrity and compliance documentation.</li>
+        <li>Calculated investor profit distributions for Pathshala 2025, cross-referencing income records against ledger entries to ensure accurate stakeholder reporting.</li>
+        <li>Audited all Pathshala physical client files, recording contract signing and expiry dates — producing a contract renewal schedule for advance visibility into upcoming renewals.</li>
+        <li>Recorded journal entries, income/expense transactions, and receive vouchers in iAccounting. Configured party ledgers and entered client data into monthly target sheets and the master client register.</li>
+        <li>Independently managed the end-to-end billing cycle: sent billing emails to all active clients, prepared money receipts via Pay Station, and entered receipt data into iAccounting receive vouchers.</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">Ledger Management</span>
+        <span class="badge">Invoice Processing</span>
+        <span class="badge">Bank Reconciliation</span>
+        <span class="badge">Accounts Receivable</span>
+        <span class="badge">iAccounting</span>
+        <span class="badge">Excel Reporting</span>
+        <span class="badge">MFS Transactions</span>
+        <span class="badge">Audit Support</span>
       </div>
     </div>
   </div>
@@ -746,46 +384,50 @@ footer {
 <!-- SKILLS -->
 <section id="skills">
   <div class="container">
-    <p class="section-tag reveal fade-up">Technical Proficiency</p>
-    <h2 class="section-title reveal fade-up">Skills &amp; <span>Expertise</span></h2>
-    <div class="skills-grid">
-      <div class="reveal slide-left">
-        <div class="skill-group-title">Finance & Accounting</div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar-label"><span>Microsoft Excel</span><span>90%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
-        </div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar-label"><span>iAccounting Software</span><span>80%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
-        </div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar-label"><span>Tally Accounting</span><span>75%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="75"></div></div>
-        </div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar-label"><span>Bookkeeping & Journal Entries</span><span>85%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
-        </div>
+    <p class="stag rv fu">Technical Proficiency</p>
+    <h2 class="stitle rv fu">Skills &amp; <em>Expertise</em></h2>
+    <div class="skgrid">
+      <div class="rv sl">
+        <div class="skgt">Accounting & Finance</div>
+        <div class="skbw"><div class="skbl"><span>Microsoft Excel (Formulas, Pivot, Analysis)</span><span>90%</span></div><div class="sktrack"><div class="skfill" data-w="90"></div></div></div>
+        <div class="skbw"><div class="skbl"><span>iAccounting Software</span><span>85%</span></div><div class="sktrack"><div class="skfill" data-w="85"></div></div></div>
+        <div class="skbw"><div class="skbl"><span>Tally Accounting</span><span>75%</span></div><div class="sktrack"><div class="skfill" data-w="75"></div></div></div>
+        <div class="skbw"><div class="skbl"><span>Bookkeeping & Journal Entries</span><span>88%</span></div><div class="sktrack"><div class="skfill" data-w="88"></div></div></div>
+        <div class="skbw"><div class="skbl"><span>Ledger Management</span><span>87%</span></div><div class="sktrack"><div class="skfill" data-w="87"></div></div></div>
       </div>
-      <div class="reveal slide-right">
-        <div class="skill-group-title">Digital & Office</div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar-label"><span>Microsoft Office Suite</span><span>88%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
-        </div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar-label"><span>Digital Marketing / Social Media</span><span>70%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
-        </div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar-label"><span>Data Entry & Documentation</span><span>92%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="92"></div></div>
-        </div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar-label"><span>Internet Research & Application</span><span>80%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
-        </div>
+      <div class="rv sr">
+        <div class="skgt">Operations & Digital</div>
+        <div class="skbw"><div class="skbl"><span>Invoice Processing & Billing</span><span>90%</span></div><div class="sktrack"><div class="skfill" data-w="90"></div></div></div>
+        <div class="skbw"><div class="skbl"><span>Microsoft Office (Word, PowerPoint, Outlook)</span><span>88%</span></div><div class="sktrack"><div class="skfill" data-w="88"></div></div></div>
+        <div class="skbw"><div class="skbl"><span>Data Entry & Documentation</span><span>92%</span></div><div class="sktrack"><div class="skfill" data-w="92"></div></div></div>
+        <div class="skbw"><div class="skbl"><span>Internet Research & Application Processing</span><span>80%</span></div><div class="sktrack"><div class="skfill" data-w="80"></div></div></div>
+        <div class="skbw"><div class="skbl"><span>Financial Reconciliation</span><span>84%</span></div><div class="sktrack"><div class="skfill" data-w="84"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOFT SKILLS -->
+<section class="alt" style="padding:60px 0;">
+  <div class="container">
+    <p class="stag rv fu">Strengths</p>
+    <h2 class="stitle rv fu">Soft <em>Skills</em></h2>
+    <div class="ss-grid">
+      <div class="ss-card rv fu">
+        <span class="ss-icon">🔍</span>
+        <div class="ss-label">Strong attention to detail in financial data and reporting</div>
+      </div>
+      <div class="ss-card rv fu" style="transition-delay:.1s">
+        <span class="ss-icon">⏱️</span>
+        <div class="ss-label">Effective time management to meet billing and reporting deadlines</div>
+      </div>
+      <div class="ss-card rv fu" style="transition-delay:.2s">
+        <span class="ss-icon">🧮</span>
+        <div class="ss-label">Analytical thinking for reconciliation and error detection</div>
+      </div>
+      <div class="ss-card rv fu" style="transition-delay:.3s">
+        <span class="ss-icon">💬</span>
+        <div class="ss-label">Professional communication in English and Bangla</div>
       </div>
     </div>
   </div>
@@ -794,63 +436,53 @@ footer {
 <!-- EDUCATION -->
 <section id="education">
   <div class="container">
-    <p class="section-tag reveal fade-up">Academic Background</p>
-    <h2 class="section-title reveal fade-up">Education</h2>
-    <div class="edu-timeline">
-      <div class="edu-item reveal slide-left">
-        <div class="edu-deg">Bachelor of Business Administration (BBA)</div>
-        <div class="edu-school">Metropolitan University, Sylhet</div>
-        <div class="edu-meta">
-          <span>Major: Accounting</span>
-          <span class="edu-gpa">CGPA: 3.50</span>
-          <span>July 2022 — June 2026</span>
-        </div>
+    <p class="stag rv fu">Academic Background</p>
+    <h2 class="stitle rv fu">Education</h2>
+    <div class="etl">
+      <div class="eitem rv sl">
+        <div class="edeg">Bachelor of Business Administration (BBA) — Accounting</div>
+        <div class="esch">Metropolitan University, Sylhet</div>
+        <div class="emeta"><span class="egpa">GPA: 3.50 / 4.00</span><span>July 2022 – April 2026</span></div>
       </div>
-      <div class="edu-item reveal slide-left" style="transition-delay:0.15s">
-        <div class="edu-deg">Higher Secondary Certificate (HSC)</div>
-        <div class="edu-school">Govt. Agragami Girls Highschool and College, Sylhet</div>
-        <div class="edu-meta">
-          <span class="edu-gpa">GPA: 4.00</span>
-          <span>2018 — 2020</span>
-        </div>
+      <div class="eitem rv sl" style="transition-delay:.15s">
+        <div class="edeg">Higher Secondary Certificate (HSC)</div>
+        <div class="esch">Govt. Agragami Girls Highschool & College, Sylhet</div>
+        <div class="emeta"><span class="egpa">GPA: 4.00 / 5.00</span><span>2018 – 2020</span></div>
       </div>
-      <div class="edu-item reveal slide-left" style="transition-delay:0.3s">
-        <div class="edu-deg">Secondary School Certificate (SSC)</div>
-        <div class="edu-school">Shahjalal Jamia Islamia School and College, Sylhet</div>
-        <div class="edu-meta">
-          <span class="edu-gpa">GPA: 4.00</span>
-          <span>2017 — 2018</span>
-        </div>
+      <div class="eitem rv sl" style="transition-delay:.3s">
+        <div class="edeg">Secondary School Certificate (SSC)</div>
+        <div class="esch">Shahjalal Jamia Islamia School & College, Sylhet</div>
+        <div class="emeta"><span class="egpa">GPA: 4.00 / 5.00</span><span>2017 – 2018</span></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CERTIFICATIONS -->
-<section id="certifications">
+<section id="certs" class="alt">
   <div class="container">
-    <p class="section-tag reveal fade-up">Recognition</p>
-    <h2 class="section-title reveal fade-up">Training &amp; <span>Certifications</span></h2>
-    <div class="cert-grid">
-      <div class="cert-card reveal fade-up">
-        <div class="cert-num">01</div>
-        <div class="cert-name">IT Support for Office Management</div>
-        <div class="cert-org">ICT Division, SUST · Sep–Nov 2024</div>
+    <p class="stag rv fu">Recognition</p>
+    <h2 class="stitle rv fu">Training &amp; <em>Certifications</em></h2>
+    <div class="cgrid">
+      <div class="ccard rv fu">
+        <div class="cnum">01</div>
+        <div class="cname">IT Support for Office Management</div>
+        <div class="corg">ICT Division, SUST · Sep–Nov 2024</div>
       </div>
-      <div class="cert-card reveal fade-up" style="transition-delay:0.1s">
-        <div class="cert-num">02</div>
-        <div class="cert-name">Tally Accounting Software</div>
-        <div class="cert-org">Professional Certification</div>
+      <div class="ccard rv fu" style="transition-delay:.1s">
+        <div class="cnum">02</div>
+        <div class="cname">Tally Accounting Software</div>
+        <div class="corg">Professional Certification</div>
       </div>
-      <div class="cert-card reveal fade-up" style="transition-delay:0.2s">
-        <div class="cert-num">03</div>
-        <div class="cert-name">Metropolitan University Model United Nations (MUMUN)</div>
-        <div class="cert-org">Conference Officer</div>
+      <div class="ccard rv fu" style="transition-delay:.2s">
+        <div class="cnum">03</div>
+        <div class="cname">Understanding the Ecosystem of Facebook Ads</div>
+        <div class="corg">Certificate of Appreciation</div>
       </div>
-      <div class="cert-card reveal fade-up" style="transition-delay:0.3s">
-        <div class="cert-num">04</div>
-        <div class="cert-name">Understanding the Ecosystem of Facebook Ads</div>
-        <div class="cert-org">Certificate of Appreciation</div>
+      <div class="ccard rv fu" style="transition-delay:.3s">
+        <div class="cnum">04</div>
+        <div class="cname">Metropolitan University Model United Nations (MUMUN)</div>
+        <div class="corg">Conference Officer</div>
       </div>
     </div>
   </div>
@@ -858,163 +490,121 @@ footer {
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="container" style="position:relative">
-    <div class="contact-glow"></div>
-    <div class="contact-ring"></div>
-    <div class="contact-ring"></div>
-    <div class="contact-ring"></div>
-    <p class="section-tag reveal fade-up" style="position:relative;z-index:1">Get In Touch</p>
-    <h2 class="section-title reveal fade-up" style="position:relative;z-index:1">Let's <span>Connect</span></h2>
-    <p class="reveal fade-up" style="position:relative;z-index:1;color:var(--muted);font-size:13px;max-width:480px;margin:0 auto;">
-      Open to opportunities in Student Counselling, Admission Processing, Educational Consultancy, and Accounting roles.
+  <div class="container" style="position:relative;">
+    <div class="crn"></div>
+    <div class="crn"></div>
+    <div class="crn"></div>
+    <p class="stag rv fu" style="position:relative;z-index:1;">Get In Touch</p>
+    <h2 class="stitle rv fu" style="position:relative;z-index:1;">Let's <em>Connect</em></h2>
+    <p class="rv fu" style="position:relative;z-index:1;color:var(--muted);font-size:13px;max-width:460px;margin:0 auto;transition-delay:.1s;">
+      Open to opportunities in Financial Accounting & Reporting, Ledger Management, Bookkeeping, and Accounts Payable & Receivable.
     </p>
-    <div class="contact-info reveal fade-up" style="transition-delay:0.1s">
-      <a href="tel:+8801833494861" class="contact-item">
-        <span class="contact-icon">📞</span>
-        01711223344
-      </a>
-      <a href="mailto:shamimaakterjui1@gmail.com" class="contact-item">
-        <span class="contact-icon">✉️</span>
-        shamimaakterjui1@gmail.com
-      </a>
-      <a href="https://linkedin.com/in/shamima-akter-jui" target="_blank" class="contact-item">
-        <span class="contact-icon">💼</span>
-        LinkedIn Profile
-      </a>
-      <div class="contact-item" style="cursor:none">
-        <span class="contact-icon">📍</span>
-        Sylhet
-      </div>
+    <div class="cinfo rv fu" style="transition-delay:.2s;">
+      <a href="mailto:shamimaakterjui1@gmail.com" class="citem"><span class="cic">✉️</span>shamimaakterjui1@gmail.com</a>
+      <a href="https://www.linkedin.com/in/shamima-akter-jui" target="_blank" class="citem"><span class="cic">💼</span>LinkedIn — SHAMIMA AKTER JUI</a>
+      <div class="citem"><span class="cic">📍</span>Sylhet</div>
     </div>
   </div>
 </section>
 
-<footer>
-  <p>© 2026 Shamima Akther Jui · Designed with care · Sylhet, Bangladesh</p>
-</footer>
+<footer>©️ 2026 Shamima Akther Jui · BBA Accounting · Sylhet, Bangladesh</footer>
 
 <script>
-/* ===== LOADING SCREEN ===== */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hidden');
-  }, 2000);
+// ── LOADER ──
+function hideLoader(){var l=document.getElementById('loader');if(l)l.classList.add('gone');}
+setTimeout(hideLoader,1700);
+window.addEventListener('load',function(){setTimeout(hideLoader,200);});
+
+// ── CURSOR ──
+var cur=document.getElementById('cur');
+var ring=document.getElementById('cur-ring');
+var mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
 });
+(function animRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
 
-/* ===== CUSTOM CURSOR ===== */
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top  = my + 'px';
-});
-
-function animateRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  cursorRing.style.left = rx + 'px';
-  cursorRing.style.top  = ry + 'px';
-  requestAnimationFrame(animateRing);
-}
-animateRing();
-
-/* ===== PARTICLE NETWORK ===== */
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas.getContext('2d');
-let W, H, particles = [];
-const N = 80;
-
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
+// ── PARTICLE CANVAS ──
+var canvas=document.getElementById('pc');
+var ctx=canvas.getContext('2d');
+var W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
 resize();
-window.addEventListener('resize', resize);
-
-function Particle() {
-  this.x = Math.random() * W;
-  this.y = Math.random() * H;
-  this.vx = (Math.random() - 0.5) * 0.4;
-  this.vy = (Math.random() - 0.5) * 0.4;
-  this.r = Math.random() * 1.5 + 0.5;
-  this.opacity = Math.random() * 0.5 + 0.1;
+window.addEventListener('resize',resize);
+var pts=[];
+for(var i=0;i<72;i++){
+  pts.push({
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+    vx:(Math.random()-.5)*.38,
+    vy:(Math.random()-.5)*.38,
+    r:Math.random()*1.3+.4,
+    op:Math.random()*.42+.08
+  });
 }
-
-for (let i = 0; i < N; i++) particles.push(new Particle());
-
-function drawParticles() {
-  ctx.clearRect(0, 0, W, H);
-  for (let i = 0; i < N; i++) {
-    const p = particles[i];
-    p.x += p.vx; p.y += p.vy;
-    if (p.x < 0 || p.x > W) p.vx *= -1;
-    if (p.y < 0 || p.y > H) p.vy *= -1;
+(function draw(){
+  ctx.clearRect(0,0,W,H);
+  for(var i=0;i<pts.length;i++){
+    var p=pts[i];
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fillStyle = `rgba(79,163,232,${p.opacity})`;
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(99,179,237,'+p.op+')';
     ctx.fill();
-    for (let j = i+1; j < N; j++) {
-      const q = particles[j];
-      const dx = p.x-q.x, dy = p.y-q.y;
-      const dist = Math.sqrt(dx*dx+dy*dy);
-      if (dist < 120) {
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(q.x, q.y);
-        ctx.strokeStyle = `rgba(79,163,232,${0.08*(1-dist/120)})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
+    for(var j=i+1;j<pts.length;j++){
+      var q=pts[j];
+      var dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<118){
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+        ctx.strokeStyle='rgba(99,179,237,'+(0.08*(1-d/118))+')';
+        ctx.lineWidth=.5;ctx.stroke();
       }
     }
   }
-  requestAnimationFrame(drawParticles);
-}
-drawParticles();
+  requestAnimationFrame(draw);
+})();
 
-/* ===== SCROLL REVEAL ===== */
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
+// ── SCROLL REVEAL ──
+var rvs=document.querySelectorAll('.rv');
+var ro=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on');});
+},{threshold:.1});
+rvs.forEach(function(el){ro.observe(el);});
+
+// ── SKILL BARS ──
+var fills=document.querySelectorAll('.skfill');
+var so=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      var t=e.target;
+      setTimeout(function(){t.style.width=t.dataset.w+'%';},80);
+      so.unobserve(t);
     }
   });
-}, { threshold: 0.12 });
-reveals.forEach(el => observer.observe(el));
+},{threshold:.3});
+fills.forEach(function(f){so.observe(f);});
 
-/* ===== SKILL BAR ANIMATION ===== */
-const skillFills = document.querySelectorAll('.skill-fill');
-const skillObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const target = e.target;
-      const w = target.dataset.width;
-      setTimeout(() => { target.style.width = w + '%'; }, 100);
-      skillObserver.unobserve(target);
-    }
+// ── 3D CARD MOUSE TILT ──
+var fc=document.querySelector('.fcard');
+if(fc){
+  fc.addEventListener('mousemove',function(e){
+    var r=fc.getBoundingClientRect();
+    var cx=r.left+r.width/2,cy=r.top+r.height/2;
+    var rxv=((e.clientY-cy)/r.height)*16;
+    var ryv=-((e.clientX-cx)/r.width)*16;
+    fc.style.animation='none';
+    fc.style.transform='rotateX('+rxv+'deg) rotateY('+ryv+'deg) translateZ(14px)';
   });
-}, { threshold: 0.3 });
-skillFills.forEach(f => skillObserver.observe(f));
-
-/* ===== 3D CARD MOUSE TILT ===== */
-const card3d = document.querySelector('.card-3d');
-if(card3d) {
-  const wrap = document.querySelector('.card-3d-wrap');
-  wrap.addEventListener('mousemove', e => {
-    const rect = wrap.getBoundingClientRect();
-    const cx = rect.left + rect.width/2;
-    const cy = rect.top + rect.height/2;
-    const rx2 = ((e.clientY-cy)/rect.height)*14;
-    const ry2 = -((e.clientX-cx)/rect.width)*14;
-    card3d.style.transform = `rotateX(${rx2}deg) rotateY(${ry2}deg) translateZ(10px)`;
-    card3d.style.animation = 'none';
-  });
-  wrap.addEventListener('mouseleave', () => {
-    card3d.style.animation = 'float3d 6s ease-in-out infinite';
-    card3d.style.transform = '';
+  fc.addEventListener('mouseleave',function(){
+    fc.style.animation='float3d 7s ease-in-out infinite';
+    fc.style.transform='';
   });
 }
 </script>
